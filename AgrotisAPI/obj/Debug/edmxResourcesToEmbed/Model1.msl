@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BancoAgrotisModelStoreContainer" CdmEntityContainer="BancoAgrotisEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="BancoAgrotisModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="CEP" ColumnName="CEP" />
+          <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+          <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+          <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+          <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+          <ScalarProperty Name="UF" ColumnName="UF" />
+          <ScalarProperty Name="Codigo_IBGE" ColumnName="Codigo_IBGE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItensPedidos">
+      <EntityTypeMapping TypeName="BancoAgrotisModel.ItensPedidos">
+        <MappingFragment StoreEntitySet="ItensPedidos">
+          <ScalarProperty Name="Codigo_produto" ColumnName="Codigo_produto" />
+          <ScalarProperty Name="DescricaoProduto" ColumnName="DescricaoProduto" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="PesoLiquido" ColumnName="PesoLiquido" />
+          <ScalarProperty Name="PrecoTotal" ColumnName="PrecoTotal" />
+          <ScalarProperty Name="PesoTotal" ColumnName="PesoTotal" />
+          <ScalarProperty Name="Codigo_pedido" ColumnName="Codigo_pedido" />
+          <ScalarProperty Name="Id_item" ColumnName="Id_item" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pedidos">
+      <EntityTypeMapping TypeName="BancoAgrotisModel.Pedidos">
+        <MappingFragment StoreEntitySet="Pedidos">
+          <ScalarProperty Name="N_pedido" ColumnName="N_pedido" />
+          <ScalarProperty Name="Data_emissao" ColumnName="Data_emissao" />
+          <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
+          <ScalarProperty Name="NomeCliente" ColumnName="NomeCliente" />
+          <ScalarProperty Name="PrecoTotalPedido" ColumnName="PrecoTotalPedido" />
+          <ScalarProperty Name="PesoTotalPedido" ColumnName="PesoTotalPedido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produtos">
+      <EntityTypeMapping TypeName="BancoAgrotisModel.Produtos">
+        <MappingFragment StoreEntitySet="Produtos">
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Peso_liquido" ColumnName="Peso_liquido" />
+          <ScalarProperty Name="Preco_unitario" ColumnName="Preco_unitario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
