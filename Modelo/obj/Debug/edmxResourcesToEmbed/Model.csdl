@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BancoAgrotisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CEP" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Cidade" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Codigo_IBGE" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ItensPedidos">
+    <Key>
+      <PropertyRef Name="Id_item" />
+    </Key>
+    <Property Name="Codigo_produto" Type="Int32" Nullable="false" />
+    <Property Name="DescricaoProduto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Quantidade" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PesoLiquido" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PrecoTotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PesoTotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Codigo_pedido" Type="Int32" />
+    <Property Name="Id_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Produtos" Relationship="Self.FK__ItensPedi__Codig__38996AB5" FromRole="ItensPedidos" ToRole="Produtos" />
+    <NavigationProperty Name="Pedidos" Relationship="Self.FK__ItensPedi__Codig__3B75D760" FromRole="ItensPedidos" ToRole="Pedidos" />
+  </EntityType>
+  <EntityType Name="Pedidos">
+    <Key>
+      <PropertyRef Name="N_pedido" />
+    </Key>
+    <Property Name="N_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Data_emissao" Type="DateTime" Precision="3" />
+    <Property Name="Codigo_cliente" Type="Int32" />
+    <Property Name="NomeCliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PrecoTotalPedido" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PesoTotalPedido" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="ItensPedidos" Relationship="Self.FK__ItensPedi__Codig__3B75D760" FromRole="Pedidos" ToRole="ItensPedidos" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Peso_liquido" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Preco_unitario" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="ItensPedidos" Relationship="Self.FK__ItensPedi__Codig__38996AB5" FromRole="Produtos" ToRole="ItensPedidos" />
+  </EntityType>
+  <Association Name="FK__ItensPedi__Codig__38996AB5">
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+    <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="ItensPedidos">
+        <PropertyRef Name="Codigo_produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensPedi__Codig__3B75D760">
+    <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
+    <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedidos">
+        <PropertyRef Name="N_pedido" />
+      </Principal>
+      <Dependent Role="ItensPedidos">
+        <PropertyRef Name="Codigo_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BancoAgrotisEntitiesModelo" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="ItensPedidos" EntityType="Self.ItensPedidos" />
+    <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" />
+    <AssociationSet Name="FK__ItensPedi__Codig__38996AB5" Association="Self.FK__ItensPedi__Codig__38996AB5">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensPedi__Codig__3B75D760" Association="Self.FK__ItensPedi__Codig__3B75D760">
+      <End Role="Pedidos" EntitySet="Pedidos" />
+      <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

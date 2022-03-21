@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BancoAgrotisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" />
+          <Property Name="CEP" Type="varchar" MaxLength="8" />
+          <Property Name="Logradouro" Type="varchar" MaxLength="100" />
+          <Property Name="Complemento" Type="varchar" MaxLength="100" />
+          <Property Name="Bairro" Type="varchar" MaxLength="100" />
+          <Property Name="Cidade" Type="varchar" MaxLength="100" />
+          <Property Name="UF" Type="varchar" MaxLength="2" />
+          <Property Name="Codigo_IBGE" Type="int" />
+        </EntityType>
+        <EntityType Name="ItensPedidos">
+          <Key>
+            <PropertyRef Name="Id_item" />
+          </Key>
+          <Property Name="Codigo_produto" Type="int" Nullable="false" />
+          <Property Name="DescricaoProduto" Type="varchar" MaxLength="100" />
+          <Property Name="Quantidade" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PesoLiquido" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PrecoTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PesoTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Codigo_pedido" Type="int" />
+          <Property Name="Id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="N_pedido" />
+          </Key>
+          <Property Name="N_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_emissao" Type="datetime" />
+          <Property Name="Codigo_cliente" Type="int" />
+          <Property Name="NomeCliente" Type="varchar" MaxLength="100" />
+          <Property Name="PrecoTotalPedido" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PesoTotalPedido" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="100" />
+          <Property Name="Peso_liquido" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Preco_unitario" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK__ItensPedi__Codig__38996AB5">
+          <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+          <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ItensPedidos">
+              <PropertyRef Name="Codigo_produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensPedi__Codig__3B75D760">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
+          <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="N_pedido" />
+            </Principal>
+            <Dependent Role="ItensPedidos">
+              <PropertyRef Name="Codigo_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoAgrotisModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItensPedidos" EntityType="Self.ItensPedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ItensPedi__Codig__38996AB5" Association="Self.FK__ItensPedi__Codig__38996AB5">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensPedi__Codig__3B75D760" Association="Self.FK__ItensPedi__Codig__3B75D760">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BancoAgrotisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo_IBGE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ItensPedidos">
+          <Key>
+            <PropertyRef Name="Id_item" />
+          </Key>
+          <Property Name="Codigo_produto" Type="Int32" Nullable="false" />
+          <Property Name="DescricaoProduto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Quantidade" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PesoLiquido" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecoTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PesoTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Codigo_pedido" Type="Int32" />
+          <Property Name="Id_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Produtos" Relationship="Self.FK__ItensPedi__Codig__38996AB5" FromRole="ItensPedidos" ToRole="Produtos" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__ItensPedi__Codig__3B75D760" FromRole="ItensPedidos" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="N_pedido" />
+          </Key>
+          <Property Name="N_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_emissao" Type="DateTime" Precision="3" />
+          <Property Name="Codigo_cliente" Type="Int32" />
+          <Property Name="NomeCliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrecoTotalPedido" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PesoTotalPedido" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ItensPedidos" Relationship="Self.FK__ItensPedi__Codig__3B75D760" FromRole="Pedidos" ToRole="ItensPedidos" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Peso_liquido" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Preco_unitario" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="ItensPedidos" Relationship="Self.FK__ItensPedi__Codig__38996AB5" FromRole="Produtos" ToRole="ItensPedidos" />
+        </EntityType>
+        <Association Name="FK__ItensPedi__Codig__38996AB5">
+          <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+          <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="ItensPedidos">
+              <PropertyRef Name="Codigo_produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItensPedi__Codig__3B75D760">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
+          <End Role="ItensPedidos" Type="Self.ItensPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="N_pedido" />
+            </Principal>
+            <Dependent Role="ItensPedidos">
+              <PropertyRef Name="Codigo_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoAgrotisEntitiesModelo" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="ItensPedidos" EntityType="Self.ItensPedidos" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" />
+          <AssociationSet Name="FK__ItensPedi__Codig__38996AB5" Association="Self.FK__ItensPedi__Codig__38996AB5">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItensPedi__Codig__3B75D760" Association="Self.FK__ItensPedi__Codig__3B75D760">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="ItensPedidos" EntitySet="ItensPedidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BancoAgrotisModelStoreContainer" CdmEntityContainer="BancoAgrotisEntitiesModelo">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="BancoAgrotisModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="Codigo_IBGE" ColumnName="Codigo_IBGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensPedidos">
+            <EntityTypeMapping TypeName="BancoAgrotisModel.ItensPedidos">
+              <MappingFragment StoreEntitySet="ItensPedidos">
+                <ScalarProperty Name="Codigo_produto" ColumnName="Codigo_produto" />
+                <ScalarProperty Name="DescricaoProduto" ColumnName="DescricaoProduto" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="PesoLiquido" ColumnName="PesoLiquido" />
+                <ScalarProperty Name="PrecoTotal" ColumnName="PrecoTotal" />
+                <ScalarProperty Name="PesoTotal" ColumnName="PesoTotal" />
+                <ScalarProperty Name="Codigo_pedido" ColumnName="Codigo_pedido" />
+                <ScalarProperty Name="Id_item" ColumnName="Id_item" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="BancoAgrotisModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="N_pedido" ColumnName="N_pedido" />
+                <ScalarProperty Name="Data_emissao" ColumnName="Data_emissao" />
+                <ScalarProperty Name="Codigo_cliente" ColumnName="Codigo_cliente" />
+                <ScalarProperty Name="NomeCliente" ColumnName="NomeCliente" />
+                <ScalarProperty Name="PrecoTotalPedido" ColumnName="PrecoTotalPedido" />
+                <ScalarProperty Name="PesoTotalPedido" ColumnName="PesoTotalPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produtos">
+            <EntityTypeMapping TypeName="BancoAgrotisModel.Produtos">
+              <MappingFragment StoreEntitySet="Produtos">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Peso_liquido" ColumnName="Peso_liquido" />
+                <ScalarProperty Name="Preco_unitario" ColumnName="Preco_unitario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
